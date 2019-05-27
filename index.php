@@ -87,9 +87,9 @@
 <body>
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Sistema de Relatórios</a>
+      <a href="#!" class="right brand-logo">Sistema de Relatórios</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
+      <ul class="left hide-on-med-and-down">
         <li><a href="sass.html">Busca por Periodo</a></li>
       </ul>
     </div>
@@ -143,9 +143,9 @@
       <!-- Falso formulário para enviar informações para o Relatório -->
       <form id="dataform" method="POST" action="../relatorios/relatorioporperiodo.php" target="_blank">
         <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-          <!-- //Estrutura com grid responsivo de coluna com centralização em mobile e desktop. -->
+          <!-- Estrutura com grid responsivo de coluna com centralização em mobile e desktop. -->
 
-          <!-- //div container com DatePicker da data inicial de busca de registros -->
+          <!-- div container com DatePicker da data inicial de busca de registros -->
           <div class="hide input-field col s12 l4 m4">
             <div class="container">
               <label>Data Inicial</label>
@@ -153,7 +153,7 @@
             </div>
           </div>
 
-          <!-- //div container com DatePicker da data final de busca de registros -->
+          <!-- div container com DatePicker da data final de busca de registros -->
           <div class="hide input-field col s12 l4 m4">
             <div class="container">
               <label>Data Final</label>
