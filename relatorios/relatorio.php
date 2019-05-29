@@ -1,10 +1,10 @@
 <?php
 
-// Conexão com o Banco de Dados do FICAT
-require __DIR__ . '/../assets/php/conexao.php';
+// Conexão com o Banco de Dados
+require __DIR__ . '/../php/conexao.php';
 
-// Conexão com as consultas ao banco de dados de Ano x Unidade
-include __DIR__ . '/../assets/php/consulta_poranoxtipo.php';
+// Conexão com as consultas
+include __DIR__ . '/../php/busca_periodo/consultas.php';
 
 
 $parte1 = '<!DOCTYPE html>
@@ -19,7 +19,7 @@ p {	margin: 0pt; }
 table.items {
 	border: 0.1mm solid #000000;
 }
-td { vertical-align: top; }
+td { vertical-align: middle; }
 .items td {
 	border-left: 0.1mm solid #000000;
 	border-right: 0.1mm solid #000000;
@@ -54,8 +54,8 @@ table thead td { background-color: #EEEEEE;
 <!--mpdf
 <htmlpageheader name="myheader">
 <table width="100%"><tr>
-<td width="100%"><span style="font-weight: bold; font-size: 14pt;"><img width="50%" height="25%" src="../assets/imgs/ficat_logo.png"></td>
-<td width="100%" style="text-align: right;"><img width="25%" height="25%" src="../assets/imgs/bc_logo.png"></td>
+<td width="100%"><span style="font-weight: bold; font-size: 14pt;">Sistema de Relatório</td>
+<td width="100%" style="text-align: right;">Insira o Logo</td>
 </tr>
 </table>
 </htmlpageheader>
@@ -74,32 +74,30 @@ $parte3 = '<div style="text-align: right">
 <table class="items" width="100%" style="font-size: 12pt; border-collapse: collapse; " cellpadding="8">
 <thead>
 <tr>
-<td style="font-size: 14pt;" width="25%"><b>Mês</b></td>
+<td style="font-size: 14pt;" width="45%"><b>Tipo</b></td>
 <td style="font-size: 14pt;" width="10%"><b>Quantidade de Registros</b></td>
 </tr>
 </thead>
 <tbody>
 <!-- ITEMS HERE -->';
 
-$linhas_tabela = ' ';
-while ($reg_result = mysqli_fetch_array($cursounidade_query, MYSQL_ASSOC)) {
-	$nomedocurso = $reg_result['curso'];
-	$sigla_unidade_curso = $reg_result['unidade'];
-	$unidade_do_curso_query = mysqli_query($conexao, "SELECT * FROM unidadesacademicas WHERE sigla = '$sigla_unidade_curso'");
-	$unidade_do_curso = mysqli_fetch_array($unidade_do_curso_query, MYSQL_ASSOC);
-	$results_sigla[] = $unidade_do_curso['nomedaunidade'];
+$tipo_row = '<tr><td align="center">Registro, Tipo 1</td>
+<td align="center">'.join($tipo, ',').'</td></tr>';
 
-	$proxima_linha = '<tr><td align="center">'.$reg_result['curso'].' - '.$unidade_do_curso['nomedaunidade'].'</td>
-	<td align="center">'.$reg_result['regs'].'</td></tr>';
-	$linhas_tabela = $linhas_tabela.$proxima_linha;
-}
+$tipo2_row = '<tr><td align="center">Registro, Tipo 2</td>
+<td align="center">'.join($tipo2, ',').'</td></tr>';
+
+$linhas_tabela = $tipo_row.$tipo2_row;
 
 $parte4 = '<tr>
 <!-- END ITEMS HERE -->
 <tr>
-
 <td class="totals"><b>TOTAL:<b></td>
-<td class="totals cost"><b>'.join($total, ',').'</b></td>
+<td class="totals cost"><b><center>'.$total_per_int.'</center></b></td>
+</tr>
+<tr>
+<td class="totals"><b>MÉDIA DE REGISTROS NO PERIODO:<b></td>
+<td class="totals cost"><b>'.$total_per_media.'</b></td>
 </tr>
 </tbody>
 </table>
@@ -120,13 +118,8 @@ $mpdf = new \Mpdf\Mpdf([
 	'margin_footer' => 10
 ]);
 $mpdf->SetProtection(array('print'));
-$mpdf->SetTitle("Relatório FICAT - Biblioteca Central");
-$mpdf->SetAuthor("SEDEPTI");
-											// $mpdf->SetWatermarkText("Biblioteca Central");
-											// $mpdf->showWatermarkText = true;
-											// $mpdf->watermark_font = 'DejaVuSansCondensed';
-											// $mpdf->watermarkTextAlpha = 0.1;
-
+$mpdf->SetTitle("Relatório");
+$mpdf->SetAuthor("bssbrubs");
 $mpdf->SetDisplayMode('fullpage');
 $mpdf->WriteHTML($html);
 $mpdf->Output();

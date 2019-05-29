@@ -1,10 +1,10 @@
 <?php
 
  // Conexão com o banco de dados
- include __DIR__ . '/php/conexao.php';
+include __DIR__ . '/php/conexao.php';
 
  // Consultas ao banco de dados
- include __DIR__ . '/php/busca_periodo/consultas.php';
+include __DIR__ . '/php/busca_periodo/consultas.php';
 
 ?>
 
@@ -37,42 +37,6 @@
   <!--Permitindo ao navegador saber que o site é otimizado a mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Iniciando os elementos Materialize-->
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('.sidenav').sidenav();
-    });
-
-     $(document).ready(function(){
-      $('select').formSelect();
-    });
-
-     $(document).ready(function(){
-      $('.datepicker').datepicker({
-        firstDay: true,
-        format: 'yyyy-mm-dd',
-        i18n: {
-          months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-          monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-          weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
-          weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-          weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-          today: 'Hoje',
-          clear: 'Limpar',
-          cancel: 'Sair',
-          done: 'Confirmar',
-          labelMonthNext: 'Próximo mês',
-          labelMonthPrev: 'Mês anterior',
-          labelMonthSelect: 'Selecione um mês',
-          labelYearSelect: 'Selecione um ano',
-          selectMonths: true,
-          selectYears: 15,
-        }
-      });
-    });
-
-  </script>
-
   <!-- Incluindo o HighCharts -->
   <?php
   if (isset($_POST["dataFim"]) && isset($_POST["dataInicio"])) {
@@ -80,7 +44,7 @@
   } else {
     // Nada a ser exibido
   }
- ?>
+  ?>
 
 </head>
 
@@ -102,7 +66,7 @@
   <br>
 
   <main>
-    <form id="dataform" method="POST" action="./index.php">
+    <form id="dataform" method="POST">
       <div class="row">
         <div class="col s10 offset-s1 m6 offset-m3">
           <!-- //Estrutura com grid responsivo de coluna com centralização em mobile e desktop. -->
@@ -126,8 +90,16 @@
           <!-- Botão de tipo submit para envio de informações via POST -->
           <div class="input-field col s12 l4 m2 center-align">
             <br class="hide-on-med-and-down">
-            <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" name="cadastrar">BUSCAR <i class="material-icons right">send</i> </button>
+            <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" value= "buscar" name="buscar" onclick="buscarDados()">BUSCAR <i class="material-icons right">send</i> </button>
           </div>
+
+          <?php
+          if (isset($_POST["dataInicio"]) && isset($_POST["dataFim"])) { 
+            echo '<div class="input-field col s12 l4 offset-l4 m4 offset-m4 center-align">
+            <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" value="gerar" name="gerar" onclick="gerarRelatorio()">GERAR RELATÓRIO  <i class="material-icons right">send</i>  </button>
+            </div>';
+          }
+          ?>
         </div>
       </form>
       <br>
@@ -139,42 +111,8 @@
           </div>
         </div>
       </div>
+    </main>
+  </body>
 
-      <!-- Falso formulário para enviar informações para o Relatório -->
-      <form id="dataform" method="POST" action="../relatorios/relatorioporperiodo.php" target="_blank">
-        <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-          <!-- Estrutura com grid responsivo de coluna com centralização em mobile e desktop. -->
-
-          <!-- div container com DatePicker da data inicial de busca de registros -->
-          <div class="hide input-field col s12 l4 m4">
-            <div class="container">
-              <label>Data Inicial</label>
-              <input type="text" id="dataInicio" required="required" name="dataInicio" value="<?php echo $dataInicio; ?>" class="datepicker">          
-            </div>
-          </div>
-
-          <!-- div container com DatePicker da data final de busca de registros -->
-          <div class="hide input-field col s12 l4 m4">
-            <div class="container">
-              <label>Data Final</label>
-              <input type="text" id="dataFim" required="required" name="dataFim" value="<?php echo $dataFim; ?>" class="datepicker">
-            </div>
-          </div>
-
-          <!-- Botão de tipo submit para envio de informações via POST -->
-          <?php
-          if (isset($_POST["dataInicio"]) && isset($_POST["dataFim"])) { 
-            echo '<div class="input-field col s12 l4 offset-l4 m4 offset-m4 center-align">
-            <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" name="cadastrar">GERAR RELATÓRIO  <i class="material-icons right">send</i>  </button>
-            </div>';
-          }else{
-            // Nada a ser exibido
-          }
-
-          ?>
-        </form>
-
-      </main>
-    </body>
-
-    </html>
+  <script src="js/scripts.js"></script>
+  </html>

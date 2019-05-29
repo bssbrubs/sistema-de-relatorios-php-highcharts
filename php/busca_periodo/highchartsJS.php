@@ -6,7 +6,7 @@
         type: 'column'
       },
       title: {
-        text: <?php echo json_encode($cccc); ?>
+        text: <?php echo json_encode($registro_source); ?>
       },
       subtitle: {
         text: 'Source: Vozes na minha cabeça'
@@ -30,10 +30,10 @@
       },
       series: [{
         name: 'AAAAAAAAAAAAAAAAAAAAAAAAA',
-        data: [<?php echo join($aaaa, ',') ?>]
+        data: [<?php echo join($tipo2, ',') ?>]
       }, {
         name: 'BBBBBBBBBBBBBBBBBBBBBBBBB',
-        data: [<?php echo join($bbbb, ',') ?>]
+        data: [<?php echo join($tipo, ',') ?>]
       }]
     });
   });
