@@ -66,43 +66,44 @@ include __DIR__ . '/php/busca_periodo/consultas.php';
   <br>
 
   <main>
-    <form id="dataform" method="POST">
+    <form class="formulario" id="dataform" method="POST">
       <div class="row">
-        <div class="col s10 offset-s1 m6 offset-m3">
+
+        <div class="col s10 offset-s1 l10 offset-l1 m8 offset-m2 center">
           <!-- //Estrutura com grid responsivo de coluna com centralização em mobile e desktop. -->
 
-          <!-- //div container com DatePicker da data inicial de busca de registros -->
-          <div class="input-field col s12 l4 m4">
-            <div class="container">
-              <label>DATA INICIAL</label>
-              <input type="text" id="dataInicio" required="required" name="dataInicio" value="<?php echo $dataInicio; ?>" class="datepicker">
+          <div class="personal">
+            <!-- //div container com DatePicker da data inicial de busca de registros -->
+            <div class="input-field form-date-picker-1 col s12 l3 m6">
+              <div class="container">
+                <label>DATA INICIAL</label>
+                <input type="text" id="dataInicio" required="required" name="dataInicio" value="<?php echo $dataInicio; ?>" class="datepicker">
+              </div>
             </div>
-          </div>
 
-          <!-- //div container com DatePicker da data final de busca de registros -->
-          <div class="input-field col s12 l4 m4">
-            <div class="container">
-              <label>DATA FINAL</label>
-              <input type="text" id="dataFim" required="required" name="dataFim" value="<?php echo $dataFim; ?>" class="datepicker">
+            <!-- //div container com DatePicker da data final de busca de registros -->
+            <div class="input-field form-date-picker-2 col s12 l3 m6">
+              <div class="container">
+                <label>DATA FINAL</label>
+                <input type="text" id="dataFim" required="required" name="dataFim" value="<?php echo $dataFim; ?>" class="datepicker">
+              </div>
             </div>
-          </div>
 
-          <!-- Botão de tipo submit para envio de informações via POST -->
-          <div class="input-field col s12 l4 m2 center-align">
-            <br class="hide-on-med-and-down">
-            <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" value= "buscar" name="buscar" onclick="buscarDados()">BUSCAR <i class="material-icons right">send</i> </button>
-          </div>
+            <!-- Botão de tipo submit para envio de informações via POST -->
+            
+            <div class="form-button input-field col s12 l3 m6">
+              <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" value= "buscar" name="buscar" onclick="buscarDados()">BUSCAR <i class="material-icons right">send</i></button>
+            </div>
 
-          <?php
-          if (isset($_POST["dataInicio"]) && isset($_POST["dataFim"])) { 
-            echo '<div class="input-field col s12 l4 offset-l4 m4 offset-m4 center-align">
-            <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" value="gerar" name="gerar" onclick="gerarRelatorio()">GERAR RELATÓRIO  <i class="material-icons right">send</i>  </button>
-            </div>';
-          }
-          ?>
+            <!-- Botão de tipo submit para envio de informações via POST p/Relatorio -->
+            <div class="form-button input-field col s12 l3 m6">
+              <button class="btn waves-effect waves-light indigo darken-4 left-align" type="submit" value="gerar" name="gerar" onclick="gerarRelatorio()">GERAR RELATÓRIO  <i class="material-icons right">send</i>  </button>
+            </div>
+          </div>          
         </div>
+      </div>
+
       </form>
-      <br>
 
       <!-- //div container da API do Highcharts -->
       <div class="row center-align">

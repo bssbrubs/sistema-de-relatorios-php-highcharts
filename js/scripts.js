@@ -33,6 +33,7 @@ $(document).ready(function(){
 
 // Indicando o action de cada button input do form
 form=document.getElementById("dataform");
+sendButton=document.getElementById("dataform");
 function gerarRelatorio() {
 	form.action="./relatorios/relatorio.php";
 	form.submit();
